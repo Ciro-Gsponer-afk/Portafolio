@@ -1,0 +1,20 @@
+# Secretos: nunca subir credenciales reales a Git
+.env
+
+# Entorno virtual de Python
+.venv/
+venv/
+env/
+
+# Archivos generados por Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Editor / sistema
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.log

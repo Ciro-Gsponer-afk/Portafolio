@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe — Portfolio Ciro Gsponer</title>
+
+  <!-- Tipografías previstas para la Fase 3 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+
+  <!--
+    MAQUETA ESTÁTICA (Fase 1).
+    No es la plantilla final: sirve para acordar el layout y la paleta.
+  -->
+  <style>
+    /* Variables de color: un solo lugar para toda la paleta nocturna */
+    :root {
+      --fondo: #05060f;
+      --fondo-2: #0b1020;
+      --tarjeta: #121a33;
+      --azul: #2b4c9b;
+      --azul-acento: #4f7cff;
+      --morado: #6d28d9;
+      --morado-claro: #8b5cf6;
+      --dorado: #d4af37;
+      --dorado-claro: #f0c75e;
+      --texto: #e8eaf6;
+      --texto-suave: #9aa4c7;
+      --borde: rgba(139, 92, 246, 0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: 'Inter', Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { font-family: 'Orbitron', Arial, sans-serif; }
+
+    .contenedor {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5, 6, 15, 0.9);
+      border-bottom: 1px solid var(--borde);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-interno {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 12px;
+    }
+
+    .marca { display: flex; align-items: center; gap: 10px; }
+    .logo {
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--azul), var(--morado));
+      color: var(--dorado-claro);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+    }
+    .marca strong { letter-spacing: 1px; font-size: 14px; }
+
+    .acciones { display: flex; align-items: center; gap: 14px; }
+    .redes { display: flex; gap: 10px; color: var(--texto-suave); font-size: 14px; }
+
+    .boton {
+      border: 1px solid var(--dorado);
+      background: transparent;
+      color: var(--dorado-claro);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .boton:hover { background: var(--dorado); color: #120d02; }
+
+    /* ---------- BANNER ---------- */
+    .banner {
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(79, 124, 255, 0.25), transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.25), transparent 45%),
+        linear-gradient(160deg, var(--fondo-2), var(--fondo));
+      border-bottom: 1px solid var(--borde);
+    }
+    .banner h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 5vw, 46px);
+      background: linear-gradient(90deg, var(--dorado-claro), var(--morado-claro));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .banner p { margin: 0; color: var(--texto-suave); }
+
+    /* ---------- SECCIONES ---------- */
+    section { padding: 48px 0; border-bottom: 1px solid var(--borde); }
+
+    .titulo-seccion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .titulo-seccion h2 { margin: 0; font-size: 20px; color: var(--dorado-claro); }
+    .agregar {
+      font-size: 12px;
+      color: var(--texto-suave);
+      border: 1px dashed var(--borde);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    /* Acerca de */
+    .acerca { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .foto {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul), var(--morado));
+      border: 2px solid var(--dorado);
+      display: grid; place-items: center;
+      color: var(--texto-suave); font-size: 12px;
+      flex-shrink: 0;
+    }
+    .acerca-texto { flex: 1; min-width: 240px; }
+    .acerca-texto h3 { margin: 0 0 4px; font-size: 22px; }
+    .acerca-texto .rol { color: var(--dorado); font-size: 14px; margin-bottom: 10px; }
+
+    /* Tarjetas de items (experiencia, educación, proyectos) */
+    .item {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-left: 3px solid var(--morado-claro);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .item h3 { margin: 0 0 2px; font-size: 15px; }
+    .item small { color: var(--texto-suave); }
+    .item p { margin: 8px 0 0; color: var(--texto-suave); font-size: 14px; }
+    .iconos-edicion { display: flex; gap: 8px; color: var(--dorado); flex-shrink: 0; font-size: 13px; }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 28px;
+    }
+    .barra { margin-bottom: 12px; }
+    .barra .etiqueta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--texto-suave);
+      margin-bottom: 5px;
+    }
+    .pista { height: 8px; background: rgba(255, 255, 255, 0.08); border-radius: 99px; overflow: hidden; }
+    .relleno {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--azul-acento), var(--morado-claro), var(--dorado));
+    }
+
+    /* Iframe de demo */
+    .marco-iframe {
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--fondo-2);
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      color: var(--texto-suave);
+      font-size: 14px;
+    }
+
+    footer { padding: 28px 0; text-align: center; color: var(--texto-suave); font-size: 13px; }
+
+    .nota {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 0;
+      font-size: 12px;
+      color: var(--dorado);
+      text-align: center;
+    }
+
+    /* ---------- RESPONSIVE (los 3 tamaños pedidos) ---------- */
+    /* TABLET: 576px a 991px → menos espacio, skills en 2 columnas */
+    @media (max-width: 991px) {
+      .banner { min-height: 260px; }
+      section { padding: 36px 0; }
+    }
+
+    /* MOBILE: menos de 576px → una sola columna y redes ocultas */
+    @media (max-width: 575px) {
+      .redes { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .acerca { flex-direction: column; text-align: center; }
+      .item { flex-direction: column; }
+      .titulo-seccion { flex-direction: column; align-items: flex-start; }
+      .banner h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="nota">MAQUETA / WIREFRAME — Fase 1 · los lápices y las X son solo referencia</p>
+
+  <!-- HEADER: logo + nombre a la izquierda; redes y login a la derecha -->
+  <header>
+    <div class="contenedor header-interno">
+      <div class="marca">
+        <div class="logo">CG</div>
+        <strong>Ciro Gsponer</strong>
+      </div>
+      <div class="acciones">
+        <span class="redes">
+          <span>GitHub</span>
+          <span>LinkedIn</span>
+          <span>Correo</span>
+        </span>
+        <button class="boton">Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div>
+      <h1>Full Stack Developer Jr</h1>
+      <p>Python · Flask · MySQL · Jinja2</p>
+    </div>
+  </div>
+
+  <!-- ACERCA DE -->
+  <section>
+    <div class="contenedor">
+      <div class="titulo-seccion"><h2>Acerca de</h2></div>
+      <div class="acerca">
+        <div class="foto">foto de perfil</div>
+        <div class="acerca-texto">
+          <h3>Ciro Gsponer</h3>
+          <div class="rol">Full Stack Developer Jr · Instituto Técnico Renault</div>
+          <p>Estudiante de 5° año. Descripción profesional leída desde la base de datos...</p>
+          <button class="boton">Descargar CV</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section>
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <h2>Experiencia</h2>
+        <span class="agregar">+ Agregar</span>
+      </div>
+      <div class="item">
+        <div>
+          <h3>Práctica Profesionalizante</h3>
+          <small>Instituto Técnico Renault · 2025</small>
+          <p>Desarrollo de una aplicación web con Flask y MySQL.</p>
+        </div>
+        <div class="iconos-edicion"><span>✎</span><span>✕</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCACIÓN -->
+  <section>
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <h2>Educación</h2>
+        <span class="agregar">+ Agregar</span>
+      </div>
+      <div class="item">
+        <div>
+          <h3>Instituto Técnico Renault</h3>
+          <small>Técnico en Programación · 2021 — en curso</small>
+        </div>
+        <div class="iconos-edicion"><span>✎</span><span>✕</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS E IDIOMAS -->
+  <section>
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <h2>Skills</h2>
+        <span class="agregar">+ Agregar</span>
+      </div>
+      <div class="skills-grid">
+        <div class="barra">
+          <div class="etiqueta"><span>Python</span><span>75%</span></div>
+          <div class="pista"><div class="relleno" style="width: 75%;"></div></div>
+        </div>
+        <div class="barra">
+          <div class="etiqueta"><span>Flask</span><span>70%</span></div>
+          <div class="pista"><div class="relleno" style="width: 70%;"></div></div>
+        </div>
+        <div class="barra">
+          <div class="etiqueta"><span>Trabajo en equipo</span><span>85%</span></div>
+          <div class="pista"><div class="relleno" style="width: 85%;"></div></div>
+        </div>
+        <div class="barra">
+          <div class="etiqueta"><span>Comunicación</span><span>80%</span></div>
+          <div class="pista"><div class="relleno" style="width: 80%;"></div></div>
+        </div>
+      </div>
+
+      <div class="titulo-seccion" style="margin-top: 28px;">
+        <h2>Idiomas</h2>
+        <span class="agregar">+ Agregar</span>
+      </div>
+      <div class="skills-grid">
+        <div class="barra">
+          <div class="etiqueta"><span>Español · Nativo</span><span>100%</span></div>
+          <div class="pista"><div class="relleno" style="width: 100%;"></div></div>
+        </div>
+        <div class="barra">
+          <div class="etiqueta"><span>Inglés · Intermedio</span><span>65%</span></div>
+          <div class="pista"><div class="relleno" style="width: 65%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section>
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <h2>Proyectos</h2>
+        <span class="agregar">+ Agregar</span>
+      </div>
+      <div class="item">
+        <div>
+          <h3>Weather Report</h3>
+          <small>2025 · aplicación del clima</small>
+          <p>Consulta una API del clima y muestra el pronóstico por ciudad.</p>
+        </div>
+        <div class="iconos-edicion"><span>✎</span><span>✕</span></div>
+      </div>
+      <div class="item">
+        <div>
+          <h3>Portafolio Personal</h3>
+          <small>2026 · este sitio</small>
+          <p>Flask, MySQL, Jinja2, autenticación y modo edición.</p>
+        </div>
+        <div class="iconos-edicion"><span>✎</span><span>✕</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IFRAME DE DEMO -->
+  <section>
+    <div class="contenedor">
+      <div class="titulo-seccion"><h2>Demo en vivo</h2></div>
+      <div class="marco-iframe">[ iframe: video o demo de un proyecto ]</div>
+    </div>
+  </section>
+
+  <footer>© 2026 Ciro Gsponer · Hecho con Flask + MySQL</footer>
+
+</body>
+</html>
