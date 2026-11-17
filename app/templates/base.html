@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio de {{ perfil.nombre if perfil else 'Ciro Gsponer' }} — desarrollador Full Stack Jr.">
+  <title>{% block title %}Portfolio{% endblock %} · {{ perfil.nombre if perfil else 'Ciro Gsponer' }}</title>
+
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" sizes="any" type="image/x-icon">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+  <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+
+  <header class="cabecera">
+    <div class="contenedor cabecera-interna">
+      <a class="marca" href="#inicio" aria-label="Ir al inicio">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo CG">
+        <strong>{{ perfil.nombre if perfil else 'Ciro Gsponer' }}</strong>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navegacion">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <nav class="acciones" id="navegacion" aria-label="Navegación principal">
+        <div class="redes">
+          {% for red in redes or [] %}
+            <a href="{{ red.url }}" target="_blank" rel="noopener noreferrer" title="{{ red.nombre }}" aria-label="{{ red.nombre }}">
+              <i class="{{ red.icono }}" aria-hidden="true"></i>
+            </a>
+          {% endfor %}
+        </div>
+        {# El login se conecta con la ruta auth en la Fase 4. #}
+        <a class="boton boton-login" href="#" aria-disabled="true" title="Disponible en la Fase 4">
+          <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Login
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>© 2026 {{ perfil.nombre if perfil else 'Ciro Gsponer' }} · Hecho con Flask + MySQL</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>

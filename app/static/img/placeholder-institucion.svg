@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Logo de institución pendiente">
+  <rect width="120" height="120" rx="16" fill="#121a33" stroke="#d4af37" stroke-opacity="0.6"/>
+  <path d="M60 28 16 48l44 20 44-20z" fill="#f0c75e"/>
+  <path d="M34 60v18c0 10 12 18 26 18s26-8 26-18V60l-26 12z" fill="#8b5cf6"/>
+  <rect x="100" y="50" width="5" height="32" rx="2" fill="#f0c75e"/>
+  <circle cx="102.5" cy="46" r="4" fill="#f0c75e"/>
+</svg>

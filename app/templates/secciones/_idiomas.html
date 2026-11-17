@@ -1,0 +1,32 @@
+{% macro barras(items) %}
+  {% for item in items %}
+    <div class="barra">
+      <div class="etiqueta">
+        <span>{{ item.nombre }} · {{ item.nivel }}</span>
+        <span>{{ item.porcentaje }}%</span>
+      </div>
+      <div class="pista" role="progressbar" aria-valuenow="{{ item.porcentaje }}"
+           aria-valuemin="0" aria-valuemax="100" aria-label="{{ item.resumen() }}">
+        <div class="relleno relleno-idioma" style="width: {{ item.porcentaje }}%"></div>
+      </div>
+    </div>
+  {% else %}
+    <p class="vacio">Sin idiomas cargados.</p>
+  {% endfor %}
+{% endmacro %}
+
+<section class="seccion" id="idiomas">
+  <div class="contenedor">
+    <div class="titulo-seccion reveal">
+      <h2><i class="fa-solid fa-language" aria-hidden="true"></i> Idiomas</h2>
+      {% if session.get('usuario_id') %}
+        <button class="agregar" type="button" data-modal="modal-idioma">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
+        </button>
+      {% endif %}
+    </div>
+    <div class="skills-grid reveal">
+      {{ barras(idiomas) }}
+    </div>
+  </div>
+</section>

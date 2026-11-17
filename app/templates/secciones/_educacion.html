@@ -1,0 +1,38 @@
+<section class="seccion" id="educacion">
+  <div class="contenedor">
+    <div class="titulo-seccion reveal">
+      <h2><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Educación</h2>
+      {% if session.get('usuario_id') %}
+        <button class="agregar" type="button" data-modal="modal-educacion">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
+        </button>
+      {% endif %}
+    </div>
+
+    {% for item in educaciones %}
+      <article class="item reveal">
+        <div class="item-con-logo">
+          <img class="logo-institucion" src="{{ url_for('static', filename=item.logo_url) }}"
+               alt="Logo de {{ item.institucion }}"
+               onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder-institucion.svg') }}'">
+          <div>
+            <h3>{{ item.resumen() }}</h3>
+            <small><i class="fa-regular fa-calendar" aria-hidden="true"></i> {{ item.periodo }}</small>
+          </div>
+        </div>
+        {% if session.get('usuario_id') %}
+          <div class="iconos-edicion">
+            <button type="button" data-modal="modal-educacion" data-id="{{ item.id }}" aria-label="Editar educación">
+              <i class="fa-solid fa-pen" aria-hidden="true"></i>
+            </button>
+            <button type="button" data-confirmar="¿Eliminar este estudio?" aria-label="Eliminar educación">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          </div>
+        {% endif %}
+      </article>
+    {% else %}
+      <p class="vacio reveal">Todavía no cargué estudios.</p>
+    {% endfor %}
+  </div>
+</section>

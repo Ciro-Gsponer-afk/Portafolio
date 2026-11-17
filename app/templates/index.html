@@ -1,114 +1,44 @@
-{# ============================================================
-   PLANTILLA TEMPORAL DE LA FASE 2
-   Sirve SOLO para comprobar que las rutas leen la base.
-   En la Fase 3 se reemplaza por base.html + index.html
-   con el diseño nocturno, el responsive y las animaciones.
-   ============================================================ #}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — {{ perfil.nombre if perfil else "Sin datos" }}</title>
-</head>
-<body>
+{% extends "base.html" %}
 
+{% block title %}Inicio{% endblock %}
+
+{% block contenido %}
 {% if not perfil %}
-  <h1>La base de datos está vacía</h1>
-  <p>Ejecutá <code>database/schema.sql</code> para cargar el perfil y los datos de ejemplo.</p>
-
+  <section class="seccion seccion-vacia" id="inicio">
+    <div class="contenedor reveal">
+      <h1>La base de datos está vacía</h1>
+      <p>Ejecutá <code>database/schema.sql</code> para cargar el perfil y los datos de ejemplo.</p>
+    </div>
+  </section>
 {% else %}
-  <header>
-    <h1>{{ perfil.nombre }}</h1>
-    <p>{{ perfil.titulo }}</p>
+  {% include "secciones/_banner.html" %}
+  {% include "secciones/_acerca.html" %}
+  {% include "secciones/_experiencia.html" %}
+  {% include "secciones/_educacion.html" %}
+  {% include "secciones/_skills.html" %}
+  {% include "secciones/_idiomas.html" %}
+  {% include "secciones/_proyectos.html" %}
 
-    {# Las redes también vienen de la base y respetan el orden cargado. #}
-    <nav>
-      {% for red in redes %}
-        <a href="{{ red.url }}" target="_blank" rel="noopener">{{ red.resumen() }}</a>
-      {% endfor %}
-      <a href="{{ url_for('static', filename=perfil.cv_url) }}">Descargar CV</a>
-    </nav>
-  </header>
-
-  <section>
-    <h2>Acerca de</h2>
-    <img src="{{ url_for('static', filename=perfil.foto_url) }}"
-         alt="Foto de {{ perfil.nombre }}" width="140">
-    <p>{{ perfil.descripcion }}</p>
-  </section>
-
-  <section>
-    <h2>Experiencia</h2>
-    {# El bloque {% else %} del for cubre el caso de la sección vacía. #}
-    {% for item in experiencias %}
-      <article>
-        <h3>{{ item.resumen() }}</h3>
-        <p>{{ item.periodo }}</p>
-        <p>{{ item.descripcion }}</p>
-      </article>
-    {% else %}
-      <p>Todavía no cargué experiencias laborales.</p>
-    {% endfor %}
-  </section>
-
-  <section>
-    <h2>Educación</h2>
-    {% for item in educaciones %}
-      <article>
-        <img src="{{ url_for('static', filename=item.logo_url) }}"
-             alt="Logo de {{ item.institucion }}" width="60">
-        <h3>{{ item.resumen() }}</h3>
-        <p>{{ item.periodo }}</p>
-      </article>
-    {% else %}
-      <p>Todavía no cargué estudios.</p>
-    {% endfor %}
-  </section>
-
-  <section>
-    <h2>Hard skills</h2>
-    {% for item in skills_hard %}
-      {# PILAR: POLIMORFISMO - Acá se llama resumen() sin preguntar la clase. #}
-      <p>{{ item.resumen() }}</p>
-    {% else %}
-      <p>Sin hard skills cargadas.</p>
-    {% endfor %}
-
-    <h2>Soft skills</h2>
-    {% for item in skills_soft %}
-      <p>{{ item.resumen() }}</p>
-    {% else %}
-      <p>Sin soft skills cargadas.</p>
-    {% endfor %}
-
-    <h2>Idiomas</h2>
-    {% for item in idiomas %}
-      <p>{{ item.resumen() }} — {{ item.porcentaje }}%</p>
-    {% else %}
-      <p>Sin idiomas cargados.</p>
-    {% endfor %}
-  </section>
-
-  <section>
-    <h2>Proyectos</h2>
-    {% for item in proyectos %}
-      <article>
-        <h3>{{ item.resumen() }}</h3>
-        <p>{{ item.descripcion }}</p>
-        <a href="{{ item.link }}" target="_blank" rel="noopener">Ver proyecto</a>
-      </article>
-    {% else %}
-      <p>Todavía no cargué proyectos.</p>
-    {% endfor %}
-  </section>
-
-  <section>
-    <h2>Demo</h2>
-    {# El iframe real (video o demo) se define en la Fase 3. #}
-    <p>[ iframe pendiente para la Fase 3 ]</p>
+  <section class="seccion" id="demo">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <h2><i class="fa-solid fa-play" aria-hidden="true"></i> Demo en vivo</h2>
+      </div>
+      {% if demo_url %}
+        <div class="marco-iframe reveal">
+          <iframe src="{{ demo_url }}"
+                  title="Video o demo del proyecto"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+      {% else %}
+        <div class="marco-iframe marco-iframe-vacio reveal">
+          <i class="fa-solid fa-video" aria-hidden="true"></i>
+          <p>Configurá <code>DEMO_URL</code> en <code>.env</code> para mostrar acá tu video o demo.</p>
+        </div>
+      {% endif %}
+    </div>
   </section>
 {% endif %}
-
-</body>
-</html>
+{% endblock %}

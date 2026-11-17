@@ -1,0 +1,11 @@
+<section class="banner" id="inicio" style="--banner-img: url('{{ url_for('static', filename=perfil.banner_url) }}')">
+  <div class="contenedor banner-interno reveal">
+    <p class="banner-saludo">Hola, soy</p>
+    <h1>{{ perfil.nombre }}</h1>
+    <p class="banner-titulo">{{ perfil.titulo }}</p>
+    <p class="banner-tecnologias">Python · Flask · MySQL · Jinja2</p>
+    <a class="boton boton-dorado" href="#acerca">
+      Ver mi perfil <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+    </a>
+  </div>
+</section>

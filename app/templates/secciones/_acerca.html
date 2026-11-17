@@ -1,0 +1,28 @@
+<section class="seccion" id="acerca">
+  <div class="contenedor">
+    <div class="titulo-seccion reveal">
+      <h2><i class="fa-solid fa-user" aria-hidden="true"></i> Acerca de</h2>
+      {% if session.get('usuario_id') %}
+        <button class="agregar" type="button" data-modal="modal-perfil">
+          <i class="fa-solid fa-pen" aria-hidden="true"></i> Editar perfil
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="acerca reveal">
+      <div class="foto">
+        <img src="{{ url_for('static', filename=perfil.foto_url) }}"
+             alt="Foto de {{ perfil.nombre }}"
+             onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder-perfil.svg') }}'">
+      </div>
+      <div class="acerca-texto">
+        <h3>{{ perfil.nombre }}</h3>
+        <p class="rol">{{ perfil.titulo }} · Instituto Técnico Renault</p>
+        <p>{{ perfil.descripcion }}</p>
+        <a class="boton" href="{{ url_for('static', filename=perfil.cv_url) }}" download>
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Descargar CV
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Captura de proyecto pendiente">
+  <rect width="640" height="360" fill="#0b1020"/>
+  <rect x="24" y="24" width="592" height="312" rx="12" fill="#121a33" stroke="#8b5cf6" stroke-opacity="0.4"/>
+  <circle cx="52" cy="52" r="6" fill="#f0c75e"/><circle cx="72" cy="52" r="6" fill="#8b5cf6"/><circle cx="92" cy="52" r="6" fill="#4f7cff"/>
+  <rect x="44" y="86" width="240" height="16" rx="8" fill="#9aa4c7" opacity="0.6"/>
+  <rect x="44" y="118" width="430" height="10" rx="5" fill="#9aa4c7" opacity="0.35"/>
+  <rect x="44" y="140" width="380" height="10" rx="5" fill="#9aa4c7" opacity="0.35"/>
+  <rect x="44" y="176" width="160" height="120" rx="8" fill="#2b4c9b" opacity="0.55"/>
+  <rect x="222" y="176" width="160" height="120" rx="8" fill="#6d28d9" opacity="0.55"/>
+  <rect x="400" y="176" width="160" height="120" rx="8" fill="#d4af37" opacity="0.45"/>
+</svg>

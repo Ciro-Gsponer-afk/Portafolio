@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, current_app, render_template
 
 from app.models import (
     Educacion,
@@ -35,7 +35,9 @@ def inicio():
 
     # Si la base está vacía, la plantilla muestra un mensaje en vez de fallar.
     if perfil is None:
-        return render_template("index.html", perfil=None)
+        return render_template(
+            "index.html", perfil=None, demo_url=current_app.config.get("DEMO_URL", "")
+        )
 
     # Se consulta cada sección por separado para que la plantilla
     # reciba exactamente las listas que necesita.
@@ -52,4 +54,5 @@ def inicio():
         skills_soft=[s for s in skills if s.tipo == "soft"],
         idiomas=_listar_por_orden(Idioma, perfil.id),
         proyectos=_listar_por_orden(Proyecto, perfil.id),
+        demo_url=current_app.config.get("DEMO_URL", ""),
     )

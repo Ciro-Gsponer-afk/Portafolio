@@ -1,0 +1,41 @@
+{% macro barras(items) %}
+  {% for item in items %}
+    <div class="barra">
+      <div class="etiqueta">
+        {# PILAR: POLIMORFISMO - el mismo método describe skills e idiomas. #}
+        <span>{{ item.resumen() }}</span>
+        <span>{{ item.porcentaje }}%</span>
+      </div>
+      <div class="pista" role="progressbar" aria-valuenow="{{ item.porcentaje }}"
+           aria-valuemin="0" aria-valuemax="100" aria-label="{{ item.resumen() }}">
+        <div class="relleno" style="width: {{ item.porcentaje }}%"></div>
+      </div>
+    </div>
+  {% else %}
+    <p class="vacio">Sin elementos cargados.</p>
+  {% endfor %}
+{% endmacro %}
+
+<section class="seccion" id="skills">
+  <div class="contenedor">
+    <div class="titulo-seccion reveal">
+      <h2><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Skills</h2>
+      {% if session.get('usuario_id') %}
+        <button class="agregar" type="button" data-modal="modal-skill">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="skills-grid reveal">
+      <div>
+        <h3 class="subtitulo">Hard skills</h3>
+        {{ barras(skills_hard) }}
+      </div>
+      <div>
+        <h3 class="subtitulo">Soft skills</h3>
+        {{ barras(skills_soft) }}
+      </div>
+    </div>
+  </div>
+</section>

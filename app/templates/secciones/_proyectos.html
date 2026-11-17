@@ -1,0 +1,42 @@
+<section class="seccion" id="proyectos">
+  <div class="contenedor">
+    <div class="titulo-seccion reveal">
+      <h2><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Proyectos</h2>
+      {% if session.get('usuario_id') %}
+        <button class="agregar" type="button" data-modal="modal-proyecto">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="proyectos-grid">
+      {% for item in proyectos %}
+        <article class="tarjeta-proyecto reveal">
+          <img src="{{ url_for('static', filename=item.imagen_url) }}"
+               alt="Captura de {{ item.nombre }}"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder-proyecto.svg') }}'">
+          <div class="tarjeta-cuerpo">
+            <h3>{{ item.resumen() }}</h3>
+            <p>{{ item.descripcion }}</p>
+            <a class="enlace-proyecto" href="{{ item.link }}" target="_blank" rel="noopener noreferrer">
+              Ver proyecto <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            </a>
+            {% if session.get('usuario_id') %}
+              <div class="iconos-edicion">
+                <button type="button" data-modal="modal-proyecto" data-id="{{ item.id }}" aria-label="Editar proyecto">
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                </button>
+                <button type="button" data-confirmar="¿Eliminar este proyecto?" aria-label="Eliminar proyecto">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        </article>
+      {% else %}
+        <p class="vacio reveal">Todavía no cargué proyectos.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

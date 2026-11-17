@@ -23,6 +23,10 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "clave-provisional-solo-desarrollo")
     SQLALCHEMY_DATABASE_URI = URL_BASE_DATOS
 
+    # Video o demo que se muestra en el iframe de la página principal.
+    # Vacío por defecto: la plantilla muestra un aviso en su lugar.
+    DEMO_URL = os.getenv("DEMO_URL", "").strip()
+
     # Evita que SQLAlchemy registre cada cambio en memoria: no lo necesitamos.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
