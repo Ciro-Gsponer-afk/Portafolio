@@ -550,6 +550,15 @@ code {
 /* El botón X va dentro de un <form> para enviar el token CSRF. */
 .formulario-eliminar { display: inline-flex; margin: 0; }
 
+/* El ícono de agarre indica que el elemento se puede arrastrar. */
+.arrastre {
+  color: var(--texto-suave);
+  cursor: grab;
+  margin-right: 4px;
+}
+
+.arrastrando { opacity: 0.45; }
+
 .seccion-admin { border-top: 1px dashed var(--borde); }
 
 .seccion-admin h2 small {

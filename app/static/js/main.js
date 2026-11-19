@@ -97,3 +97,63 @@ document.querySelectorAll("[data-confirmar]").forEach((boton) => {
     if (!window.confirm(mensaje)) evento.preventDefault();
   });
 });
+
+// DRAG & DROP: al soltar, se manda la nueva lista de ids al servidor.
+document.querySelectorAll("[data-ordenar]").forEach((contenedor) => {
+  let elementoArrastrado = null;
+
+  contenedor.querySelectorAll('[draggable="true"]').forEach((elemento) => {
+    elemento.addEventListener("dragstart", (evento) => {
+      elementoArrastrado = elemento;
+      elemento.classList.add("arrastrando");
+      evento.dataTransfer.effectAllowed = "move";
+      evento.dataTransfer.setData("text/plain", elemento.dataset.id || "");
+    });
+
+    elemento.addEventListener("dragend", () => {
+      elementoArrastrado = null;
+      elemento.classList.remove("arrastrando");
+    });
+  });
+
+  contenedor.addEventListener("dragover", (evento) => {
+    evento.preventDefault(); // Sin esto el navegador no permite soltar.
+    if (!elementoArrastrado) return;
+
+    const destino = evento.target.closest('[draggable="true"]');
+    if (!destino || destino === elementoArrastrado || destino.parentElement !== contenedor) {
+      return;
+    }
+
+    const caja = destino.getBoundingClientRect();
+    const esCuadricula = getComputedStyle(contenedor).display === "grid";
+    // En grillas (proyectos) se compara por X; en listas, por Y.
+    const despues = esCuadricula
+      ? evento.clientX > caja.left + caja.width / 2
+      : evento.clientY > caja.top + caja.height / 2;
+
+    contenedor.insertBefore(elementoArrastrado, despues ? destino.nextSibling : destino);
+  });
+
+  contenedor.addEventListener("drop", async (evento) => {
+    evento.preventDefault();
+    if (!elementoArrastrado) return;
+
+    const ids = Array.from(
+      contenedor.querySelectorAll('[draggable="true"]'),
+      (elemento) => Number(elemento.dataset.id)
+    );
+    const token = document.querySelector('meta[name="csrf-token"]')?.content || "";
+
+    try {
+      const respuesta = await fetch(`/editar/${contenedor.dataset.ordenar}/reordenar`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-CSRFToken": token},
+        body: JSON.stringify({ids}),
+      });
+      if (!respuesta.ok) throw new Error("No se pudo guardar el nuevo orden");
+    } catch (error) {
+      console.error(error);
+    }
+  });
+});

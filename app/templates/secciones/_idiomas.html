@@ -1,8 +1,9 @@
 {% macro barras(items) %}
+  <div class="lista-ordenable" data-ordenar="idioma">
   {% for item in items %}
-    <div class="barra reveal">
+    <div class="barra reveal" draggable="{{ 'true' if session.get('usuario_id') else 'false' }}" data-id="{{ item.id }}">
       <div class="etiqueta">
-        <span>{{ item.nombre }} · {{ item.nivel }}</span>
+        <span>{% if session.get('usuario_id') %}<i class="fa-solid fa-grip-lines arrastre" title="Arrastrar para ordenar" aria-hidden="true"></i> {% endif %}{{ item.nombre }} · {{ item.nivel }}</span>
         <span>{{ item.porcentaje }}%</span>
         {% if session.get('usuario_id') %}
           <span class="iconos-edicion">
@@ -31,6 +32,7 @@
   {% else %}
     <p class="vacio">Sin idiomas cargados.</p>
   {% endfor %}
+  </div>
 {% endmacro %}
 
 <section class="seccion" id="idiomas">

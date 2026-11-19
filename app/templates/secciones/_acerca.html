@@ -21,7 +21,7 @@
         <h3>{{ perfil.nombre }}</h3>
         <p class="rol">{{ perfil.titulo }} · Instituto Técnico Renault</p>
         <p>{{ perfil.descripcion }}</p>
-        <a class="boton" href="{{ url_for('static', filename=perfil.cv_url) }}" download>
+        <a class="boton" href="{{ url_for('publicas.descargar_cv') }}">
           <i class="fa-solid fa-download" aria-hidden="true"></i> Descargar CV
         </a>
       </div>

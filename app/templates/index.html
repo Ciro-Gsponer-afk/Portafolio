@@ -52,10 +52,11 @@
           </button>
         </div>
 
+        <div class="lista-ordenable" data-ordenar="red_social">
         {% for red in redes %}
-          <article class="item reveal">
+          <article class="item reveal" draggable="true" data-id="{{ red.id }}">
             <div>
-              <h3><i class="{{ red.icono }}" aria-hidden="true"></i> {{ red.nombre }}</h3>
+              <h3><i class="fa-solid fa-grip-lines arrastre" title="Arrastrar para ordenar" aria-hidden="true"></i> <i class="{{ red.icono }}" aria-hidden="true"></i> {{ red.nombre }}</h3>
               <small>{{ red.url }}</small>
             </div>
             <div class="iconos-edicion">
@@ -78,6 +79,7 @@
         {% else %}
           <p class="vacio reveal">Todavía no cargué redes sociales.</p>
         {% endfor %}
+        </div>
       </div>
     </section>
 

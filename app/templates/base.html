@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portfolio de {{ perfil.nombre if perfil else 'Ciro Gsponer' }} — desarrollador Full Stack Jr.">
+  {# Token para las peticiones AJAX del drag & drop (CSRF también aplica acá). #}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{% block title %}Portfolio{% endblock %} · {{ perfil.nombre if perfil else 'Ciro Gsponer' }}</title>
 
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" sizes="any" type="image/x-icon">

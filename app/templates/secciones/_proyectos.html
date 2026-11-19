@@ -9,15 +9,15 @@
       {% endif %}
     </div>
 
-    <div class="proyectos-grid">
+    <div class="proyectos-grid lista-ordenable" data-ordenar="proyecto">
       {% for item in proyectos %}
-        <article class="tarjeta-proyecto reveal">
+        <article class="tarjeta-proyecto reveal" draggable="{{ 'true' if session.get('usuario_id') else 'false' }}" data-id="{{ item.id }}">
           <img src="{{ url_for('static', filename=item.imagen_url) }}"
                alt="Captura de {{ item.nombre }}"
                loading="lazy"
                onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder-proyecto.svg') }}'">
           <div class="tarjeta-cuerpo">
-            <h3>{{ item.resumen() }}</h3>
+            <h3>{% if session.get('usuario_id') %}<i class="fa-solid fa-grip-lines arrastre" title="Arrastrar para ordenar" aria-hidden="true"></i> {% endif %}{{ item.resumen() }}</h3>
             <p>{{ item.descripcion }}</p>
             <a class="enlace-proyecto" href="{{ item.link }}" target="_blank" rel="noopener noreferrer">
               Ver proyecto <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>

@@ -9,11 +9,12 @@
       {% endif %}
     </div>
 
+    <div class="lista-ordenable" data-ordenar="experiencia">
     {% for item in experiencias %}
-      <article class="item reveal">
+      <article class="item reveal" draggable="{{ 'true' if session.get('usuario_id') else 'false' }}" data-id="{{ item.id }}">
         <div>
           {# PILAR: POLIMORFISMO - resumen() se llama igual para cada clase. #}
-          <h3>{{ item.resumen() }}</h3>
+          <h3>{% if session.get('usuario_id') %}<i class="fa-solid fa-grip-lines arrastre" title="Arrastrar para ordenar" aria-hidden="true"></i> {% endif %}{{ item.resumen() }}</h3>
           <small><i class="fa-regular fa-calendar" aria-hidden="true"></i> {{ item.periodo }}</small>
           <p>{{ item.descripcion }}</p>
         </div>
@@ -39,5 +40,6 @@
     {% else %}
       <p class="vacio reveal">Todavía no cargué experiencias laborales.</p>
     {% endfor %}
+    </div>
   </div>
 </section>
