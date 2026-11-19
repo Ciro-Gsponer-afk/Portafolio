@@ -1,9 +1,27 @@
 {% macro barras(items) %}
   {% for item in items %}
-    <div class="barra">
+    <div class="barra reveal">
       <div class="etiqueta">
         <span>{{ item.nombre }} · {{ item.nivel }}</span>
         <span>{{ item.porcentaje }}%</span>
+        {% if session.get('usuario_id') %}
+          <span class="iconos-edicion">
+            <button type="button"
+                    data-modal="modal-idioma"
+                    data-id="{{ item.id }}"
+                    data-url-editar="{{ url_for('edicion.datos_para_editar', entidad='idioma', item_id=item.id) }}"
+                    aria-label="Editar idioma">
+              <i class="fa-solid fa-pen" aria-hidden="true"></i>
+            </button>
+            <form class="formulario-eliminar" method="post"
+                  action="{{ url_for('edicion.eliminar', entidad='idioma', item_id=item.id) }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button type="submit" data-confirmar="¿Eliminar este idioma?" aria-label="Eliminar idioma">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              </button>
+            </form>
+          </span>
+        {% endif %}
       </div>
       <div class="pista" role="progressbar" aria-valuenow="{{ item.porcentaje }}"
            aria-valuemin="0" aria-valuemax="100" aria-label="{{ item.resumen() }}">

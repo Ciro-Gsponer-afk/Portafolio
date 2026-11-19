@@ -1,0 +1,15 @@
+{# Un solo partial para todos los formularios: recorre los campos y deja
+   que WTForms decida si es texto, fecha, selector, archivo o textarea. #}
+{% for campo in formulario %}
+  {% if campo.type not in ["CSRFTokenField", "HiddenField", "SubmitField"] %}
+    <div class="campo {% if campo.type == 'BooleanField' %}campo-check{% endif %}">
+      {{ campo.label }}
+      {{ campo(class="campo-control") }}
+      {% for error in campo.errors %}
+        <small class="error">{{ error }}</small>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endfor %}
+
+{{ formulario.submit(class="boton boton-dorado") }}

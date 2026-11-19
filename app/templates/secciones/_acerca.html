@@ -3,7 +3,9 @@
     <div class="titulo-seccion reveal">
       <h2><i class="fa-solid fa-user" aria-hidden="true"></i> Acerca de</h2>
       {% if session.get('usuario_id') %}
-        <button class="agregar" type="button" data-modal="modal-perfil">
+        <button class="agregar" type="button"
+                data-modal="modal-perfil"
+                data-url-editar="{{ url_for('edicion.datos_perfil') }}">
           <i class="fa-solid fa-pen" aria-hidden="true"></i> Editar perfil
         </button>
       {% endif %}

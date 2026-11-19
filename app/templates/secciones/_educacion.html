@@ -22,12 +22,20 @@
         </div>
         {% if session.get('usuario_id') %}
           <div class="iconos-edicion">
-            <button type="button" data-modal="modal-educacion" data-id="{{ item.id }}" aria-label="Editar educación">
+            <button type="button"
+                    data-modal="modal-educacion"
+                    data-id="{{ item.id }}"
+                    data-url-editar="{{ url_for('edicion.datos_para_editar', entidad='educacion', item_id=item.id) }}"
+                    aria-label="Editar educación">
               <i class="fa-solid fa-pen" aria-hidden="true"></i>
             </button>
-            <button type="button" data-confirmar="¿Eliminar este estudio?" aria-label="Eliminar educación">
-              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-            </button>
+            <form class="formulario-eliminar" method="post"
+                  action="{{ url_for('edicion.eliminar', entidad='educacion', item_id=item.id) }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button type="submit" data-confirmar="¿Eliminar este estudio?" aria-label="Eliminar educación">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              </button>
+            </form>
           </div>
         {% endif %}
       </article>

@@ -1,10 +1,28 @@
-{% macro barras(items) %}
+{% macro barras(items, entidad) %}
   {% for item in items %}
-    <div class="barra">
+    <div class="barra reveal">
       <div class="etiqueta">
         {# PILAR: POLIMORFISMO - el mismo método describe skills e idiomas. #}
         <span>{{ item.resumen() }}</span>
         <span>{{ item.porcentaje }}%</span>
+        {% if session.get('usuario_id') %}
+          <span class="iconos-edicion">
+            <button type="button"
+                    data-modal="modal-{{ entidad }}"
+                    data-id="{{ item.id }}"
+                    data-url-editar="{{ url_for('edicion.datos_para_editar', entidad=entidad, item_id=item.id) }}"
+                    aria-label="Editar {{ entidad }}">
+              <i class="fa-solid fa-pen" aria-hidden="true"></i>
+            </button>
+            <form class="formulario-eliminar" method="post"
+                  action="{{ url_for('edicion.eliminar', entidad=entidad, item_id=item.id) }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button type="submit" data-confirmar="¿Eliminar este elemento?" aria-label="Eliminar {{ entidad }}">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              </button>
+            </form>
+          </span>
+        {% endif %}
       </div>
       <div class="pista" role="progressbar" aria-valuenow="{{ item.porcentaje }}"
            aria-valuemin="0" aria-valuemax="100" aria-label="{{ item.resumen() }}">
@@ -30,11 +48,11 @@
     <div class="skills-grid reveal">
       <div>
         <h3 class="subtitulo">Hard skills</h3>
-        {{ barras(skills_hard) }}
+        {{ barras(skills_hard, 'skill') }}
       </div>
       <div>
         <h3 class="subtitulo">Soft skills</h3>
-        {{ barras(skills_soft) }}
+        {{ barras(skills_soft, 'skill') }}
       </div>
     </div>
   </div>

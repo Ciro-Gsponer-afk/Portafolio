@@ -40,5 +40,54 @@
       {% endif %}
     </div>
   </section>
+
+  {# Las redes se administran aparte: en el header solo se ven los íconos. #}
+  {% if session.get('usuario_id') %}
+    <section class="seccion seccion-admin" id="administracion">
+      <div class="contenedor">
+        <div class="titulo-seccion reveal">
+          <h2><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Redes sociales <small>(solo visible para vos)</small></h2>
+          <button class="agregar" type="button" data-modal="modal-red_social">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
+          </button>
+        </div>
+
+        {% for red in redes %}
+          <article class="item reveal">
+            <div>
+              <h3><i class="{{ red.icono }}" aria-hidden="true"></i> {{ red.nombre }}</h3>
+              <small>{{ red.url }}</small>
+            </div>
+            <div class="iconos-edicion">
+              <button type="button"
+                      data-modal="modal-red_social"
+                      data-id="{{ red.id }}"
+                      data-url-editar="{{ url_for('edicion.datos_para_editar', entidad='red_social', item_id=red.id) }}"
+                      aria-label="Editar red social">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <form class="formulario-eliminar" method="post"
+                    action="{{ url_for('edicion.eliminar', entidad='red_social', item_id=red.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" data-confirmar="¿Eliminar esta red social?" aria-label="Eliminar red social">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+          </article>
+        {% else %}
+          <p class="vacio reveal">Todavía no cargué redes sociales.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    {# Los diálogos se crean una sola vez y se llenan con JS al editar. #}
+    {% for modal in modales %}
+      {% set entidad = modal.entidad %}
+      {% set titulo = modal.titulo %}
+      {% set formulario = modal.formulario %}
+      {% include "modales/_modal.html" %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
 {% endblock %}

@@ -1,0 +1,20 @@
+{% if entidad == "perfil" %}
+  {% set accion = url_for('edicion.editar_perfil') %}
+{% else %}
+  {% set accion = url_for('edicion.guardar', entidad=entidad) %}
+{% endif %}
+
+<dialog id="modal-{{ entidad }}" class="modal" aria-labelledby="titulo-{{ entidad }}">
+  <div class="modal-cabecera">
+    <h2 id="titulo-{{ entidad }}">{{ titulo }}</h2>
+    <button class="cerrar-modal" type="button" data-cerrar-modal aria-label="Cerrar ventana">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  {# multipart/form-data es obligatorio para poder subir imágenes y el PDF. #}
+  <form method="post" enctype="multipart/form-data" action="{{ accion }}">
+    {{ formulario.hidden_tag() }}
+    {% include "modales/_formulario.html" %}
+  </form>
+</dialog>
