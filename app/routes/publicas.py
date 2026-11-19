@@ -1,4 +1,6 @@
-from flask import Blueprint, current_app, render_template, session
+import os
+
+from flask import Blueprint, abort, current_app, render_template, send_from_directory, session
 
 from app.forms import crear_modales
 from app.models import (
@@ -69,3 +71,23 @@ def datos_index():
 def inicio():
     """Página principal: lee todo el contenido desde MySQL."""
     return render_template("index.html", **datos_index())
+
+
+@publicas_bp.route("/descargar-cv")
+def descargar_cv():
+    """
+    Descarga el PDF indicado en la base con un nombre amigable.
+
+    send_from_directory ya evita rutas con '..', y as_attachment=True
+    hace que el navegador descargue en vez de mostrar el PDF.
+    """
+    perfil = Perfil.query.first()
+    if perfil is None or not perfil.cv_url:
+        abort(404)
+
+    return send_from_directory(
+        os.path.join(current_app.root_path, "static"),
+        perfil.cv_url,
+        as_attachment=True,
+        download_name=f"CV_{perfil.nombre.replace(' ', '_')}.pdf",
+    )

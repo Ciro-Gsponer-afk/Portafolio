@@ -10,6 +10,7 @@ from flask import (
     jsonify,
     redirect,
     render_template,
+    request,
     session,
     url_for,
 )
@@ -254,3 +255,40 @@ def eliminar(entidad, item_id):
     db.session.commit()
     flash("Elemento eliminado.", "aviso")
     return redirect(url_for("publicas.inicio"))
+
+
+@edicion_bp.route("/<entidad>/reordenar", methods=["POST"])
+@login_requerido
+def reordenar(entidad):
+    """
+    Guarda el orden nuevo que mandó el drag & drop.
+
+    JavaScript envía la lista de ids en el orden deseado. Acá se verifican
+    dos cosas: que la sección exista y que TODOS los ids pertenezcan al
+    perfil de la sesión (así nadie puede reordenar contenido ajeno).
+    """
+    config = _config_de(entidad)
+    perfil = _perfil_actual()
+    datos = request.get_json(silent=True) or {}
+    ids = datos.get("ids", [])
+
+    if not isinstance(ids, list) or len(ids) != len(set(ids)):
+        abort(400)
+
+    items = (
+        config["modelo"]
+        .query.filter(
+            config["modelo"].id.in_(ids),
+            config["modelo"].perfil_id == perfil.id,
+        )
+        .all()
+    )
+    if len(items) != len(ids):
+        abort(400)
+
+    por_id = {item.id: item for item in items}
+    for indice, item_id in enumerate(ids):
+        por_id[item_id].orden = indice + 1
+
+    db.session.commit()
+    return jsonify({"ok": True})
