@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block contenido %}
+<section class="seccion seccion-login">
+  <div class="contenedor">
+    <div class="tarjeta-login reveal">
+      <h1><i class="fa-solid fa-lock" aria-hidden="true"></i> Iniciar sesión</h1>
+      <p>Ingresá con tu usuario para habilitar los botones de edición.</p>
+
+      {# novalidate deja que los errores aparezcan con nuestro estilo, no con el del navegador. #}
+      <form method="post" novalidate>
+        {{ formulario.hidden_tag() }}
+
+        <div class="campo">
+          {{ formulario.username.label }}
+          {{ formulario.username(class="campo-control", autocomplete="username", autofocus=true) }}
+          {% for error in formulario.username.errors %}
+            <small class="error">{{ error }}</small>
+          {% endfor %}
+        </div>
+
+        <div class="campo">
+          {{ formulario.password.label }}
+          {{ formulario.password(class="campo-control", autocomplete="current-password") }}
+          {% for error in formulario.password.errors %}
+            <small class="error">{{ error }}</small>
+          {% endfor %}
+        </div>
+
+        <div class="campo campo-check">
+          {{ formulario.recordar() }}
+          {{ formulario.recordar.label }}
+        </div>
+
+        {{ formulario.submit(class="boton boton-dorado") }}
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

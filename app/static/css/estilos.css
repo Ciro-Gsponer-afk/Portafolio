@@ -491,6 +491,60 @@ code {
 .marco-iframe-vacio i { font-size: 36px; color: var(--dorado); }
 .marco-iframe-vacio p { margin: 0; max-width: 420px; }
 
+/* ---------- LOGIN Y AVISOS ---------- */
+
+/* El logout es un formulario, por eso necesita sacar el espacio del <form>. */
+.formulario-logout { display: inline-flex; margin: 0; }
+
+.avisos { padding-top: 16px; }
+
+.aviso {
+  margin: 0 0 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: var(--tarjeta);
+  font-size: 14px;
+}
+
+.aviso-exito { border-color: #3ddc97; color: #a9f5d4; }
+.aviso-error { border-color: #ff6b6b; color: #ffc4c4; }
+.aviso-aviso { border-color: var(--dorado); color: var(--dorado-claro); }
+
+.seccion-login { min-height: 70vh; display: grid; place-items: center; }
+
+.tarjeta-login {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+}
+
+.tarjeta-login h1 { font-size: 22px; margin-top: 0; }
+.tarjeta-login > p { color: var(--texto-suave); font-size: 14px; }
+
+.campo { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.campo label { font-size: 13px; font-weight: 600; }
+
+.campo-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--fondo-2);
+  color: var(--texto);
+  font: 400 14px/1.4 'Inter', Arial, sans-serif;
+}
+
+.campo-control:focus { outline: 2px solid var(--dorado); outline-offset: 1px; }
+
+.error { color: #ff9b9b; font-size: 12px; }
+.campo-check { flex-direction: row; align-items: center; gap: 8px; }
+.campo-check label { font-weight: 400; font-size: 13px; }
+.tarjeta-login .boton { width: 100%; margin-top: 8px; }
+
 /* Footer */
 
 .pie {
@@ -561,4 +615,5 @@ code {
   .banner { min-height: 250px; padding: 34px 16px; }
   .banner h1 { font-size: 28px; }
   .item-con-logo { align-items: flex-start; }
+  .tarjeta-login { padding: 20px; }
 }

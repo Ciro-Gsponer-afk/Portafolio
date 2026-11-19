@@ -36,15 +36,36 @@
             </a>
           {% endfor %}
         </div>
-        {# El login se conecta con la ruta auth en la Fase 4. #}
-        <a class="boton boton-login" href="#" aria-disabled="true" title="Disponible en la Fase 4">
-          <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Login
-        </a>
+        {# El botón cambia según la sesión: al iniciar sesión aparece Logout. #}
+        {% if session.get('usuario_id') %}
+          <form class="formulario-logout" method="post" action="{{ url_for('auth.logout') }}">
+            {# Flask-WTF inyecta csrf_token() para proteger también el cierre de sesión. #}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="boton boton-login" type="submit">
+              <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Logout
+            </button>
+          </form>
+        {% else %}
+          <a class="boton boton-login" href="{{ url_for('auth.login') }}">
+            <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Login
+          </a>
+        {% endif %}
       </nav>
     </div>
   </header>
 
   <main id="contenido">
+    {# Los avisos (éxito, error, información) se muestran una sola vez. #}
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% if mensajes %}
+        <div class="contenedor avisos">
+          {% for categoria, mensaje in mensajes %}
+            <p class="aviso aviso-{{ categoria }}" role="status">{{ mensaje }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     {% block contenido %}{% endblock %}
   </main>
 
