@@ -12,6 +12,10 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 
+# Archivos subidos por el usuario (se guardan en la carpeta static/uploads)
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+
 # Editor / sistema
 .vscode/
 .idea/

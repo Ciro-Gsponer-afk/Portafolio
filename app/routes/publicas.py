@@ -1,5 +1,6 @@
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, current_app, render_template, session
 
+from app.forms import crear_modales
 from app.models import (
     Educacion,
     Experiencia,
@@ -27,32 +28,44 @@ def _listar_por_orden(modelo, perfil_id):
     )
 
 
-@publicas_bp.route("/")
-def inicio():
-    """Página principal: lee todo el contenido desde MySQL."""
-    # El portfolio tiene un solo perfil, entonces alcanza con el primero.
+def datos_index():
+    """
+    Arma los datos de la página principal.
+
+    Esta función se llama desde la ruta pública y también desde el modo
+    edición cuando un formulario tiene errores: así no repetimos las
+    mismas consultas en dos archivos.
+    """
     perfil = Perfil.query.first()
 
     # Si la base está vacía, la plantilla muestra un mensaje en vez de fallar.
     if perfil is None:
-        return render_template(
-            "index.html", perfil=None, demo_url=current_app.config.get("DEMO_URL", "")
-        )
+        return {
+            "perfil": None,
+            "demo_url": current_app.config.get("DEMO_URL", ""),
+            "modales": [],
+        }
 
-    # Se consulta cada sección por separado para que la plantilla
-    # reciba exactamente las listas que necesita.
     skills = _listar_por_orden(Skill, perfil.id)
 
-    return render_template(
-        "index.html",
-        perfil=perfil,
-        redes=_listar_por_orden(RedSocial, perfil.id),
-        experiencias=_listar_por_orden(Experiencia, perfil.id),
-        educaciones=_listar_por_orden(Educacion, perfil.id),
+    return {
+        "perfil": perfil,
+        "redes": _listar_por_orden(RedSocial, perfil.id),
+        "experiencias": _listar_por_orden(Experiencia, perfil.id),
+        "educaciones": _listar_por_orden(Educacion, perfil.id),
         # Se separan acá para no hacer lógica en la plantilla.
-        skills_hard=[s for s in skills if s.tipo == "hard"],
-        skills_soft=[s for s in skills if s.tipo == "soft"],
-        idiomas=_listar_por_orden(Idioma, perfil.id),
-        proyectos=_listar_por_orden(Proyecto, perfil.id),
-        demo_url=current_app.config.get("DEMO_URL", ""),
-    )
+        "skills_hard": [s for s in skills if s.tipo == "hard"],
+        "skills_soft": [s for s in skills if s.tipo == "soft"],
+        "idiomas": _listar_por_orden(Idioma, perfil.id),
+        "proyectos": _listar_por_orden(Proyecto, perfil.id),
+        "demo_url": current_app.config.get("DEMO_URL", ""),
+        # Los modales solo se crean si hay sesión: así no se generan
+        # tokens CSRF innecesarios para un visitante cualquiera.
+        "modales": crear_modales() if session.get("usuario_id") else [],
+    }
+
+
+@publicas_bp.route("/")
+def inicio():
+    """Página principal: lee todo el contenido desde MySQL."""
+    return render_template("index.html", **datos_index())

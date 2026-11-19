@@ -3,6 +3,7 @@ from flask import Flask
 from app.config import Config
 from app.extensions import csrf, db
 from app.routes.auth import auth_bp
+from app.routes.edicion import edicion_bp
 from app.routes.publicas import publicas_bp
 
 # Importar los modelos hace que SQLAlchemy conozca todas las tablas.
@@ -27,5 +28,6 @@ def crear_app():
     # Registra las rutas públicas y las de autenticación.
     app.register_blueprint(publicas_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(edicion_bp)
 
     return app

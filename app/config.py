@@ -33,3 +33,11 @@ class Config:
     # Antes de usar una conexión del pool, verifica que siga viva.
     # Es útil en hosting gratuito, que suele cerrar conexiones inactivas.
     SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
+
+    # Los archivos que sube el dueño se guardan en static/uploads.
+    RUTA_UPLOADS = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "static", "uploads"
+    )
+
+    # Límite de 5 MB por petición: evita subir archivos gigantes por accidente.
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024
