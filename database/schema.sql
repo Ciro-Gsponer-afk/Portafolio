@@ -193,16 +193,16 @@ VALUES
 (1, 1,
  'Ciro Gsponer',
  'Full Stack Developer Jr',
- 'Soy estudiante de 5° año del Instituto Técnico Renault y me formo como desarrollador Full Stack. Me interesa construir aplicaciones web completas: desde la base de datos y la lógica en Python hasta una interfaz clara y responsive. Disfruto aprender con proyectos reales, trabajar en equipo y documentar lo que hago para poder explicarlo.',
+ 'Soy estudiante de 6° año del Instituto Técnico Renault y me formo como desarrollador Full Stack. Me interesa construir aplicaciones web completas: desde la base de datos y la lógica en Python hasta una interfaz clara y responsive. Disfruto aprender con proyectos reales, trabajar en equipo y documentar lo que hago para poder explicarlo.',
  'img/perfil.jpg',
  'img/banner.jpg',
  'cv/Ciro_Gsponer_CV.pdf');
 
 -- Redes del header (los links son de ejemplo: reemplazarlos por los reales).
 INSERT INTO red_social (perfil_id, nombre, icono, url, orden) VALUES
-(1, 'GitHub',   'fa-brands fa-github',   'https://github.com/cirogsponer', 1),
-(1, 'LinkedIn', 'fa-brands fa-linkedin', 'https://www.linkedin.com/in/cirogsponer', 2),
-(1, 'Correo',   'fa-solid fa-envelope',  'mailto:ciro.gsponer@example.com', 3);
+(1, 'GitHub',   'fa-brands fa-github',   'https://github.com/Ciro-Gsponer-afk', 1),
+(1, 'LinkedIn', 'fa-brands fa-linkedin', 'https://www.linkedin.com/in/ciro-gsponer-4a9b76394/', 2),
+(1, 'Correo',   'fa-solid fa-envelope',  'mailto:cirogsp235@gmail.com', 3);
 
 -- Experiencia: si no corresponde, se puede eliminar desde el modo edición.
 -- fecha_fin NULL se muestra como "Actualidad".
